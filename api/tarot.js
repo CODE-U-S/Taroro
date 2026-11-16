@@ -1,4 +1,5 @@
 import cardsData from "../src/data/cards.json" with { type: "json" };
+import { createFallbackReading } from "../src/utils/fallbackReading.js";
 
 const topicNames = {
   love: "연애운",
@@ -50,6 +51,7 @@ export default async function handler(req, res) {
     return {
       id: card.id,
       name: card.name,
+      suit: card.suit,
       position: positionNames[index],
       meaning: card.upright,
       keywords: card.keywords,
@@ -127,10 +129,9 @@ export default async function handler(req, res) {
     );
 
     if (!response.ok) {
-      console.error("Gemini 응답 코드:", response.status);
-      return res.status(502).json({
-        error: "AI 해석을 생성하지 못했습니다.",
-      });
+      console.error("Gemini API 오류:", response.status);
+
+      return res.status(200).json(createFallbackReading(topic, selectedCards));
     }
 
     const data = await response.json();
@@ -140,9 +141,7 @@ export default async function handler(req, res) {
       .join("");
 
     if (!text) {
-      return res.status(502).json({
-        error: "AI에서 빈 응답을 받았습니다.",
-      });
+      return res.status(200).json(createFallbackReading(topic, selectedCards));
     }
 
     const result = JSON.parse(text);
@@ -159,8 +158,6 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error("Taroro API 오류:", error.message);
 
-    return res.status(500).json({
-      error: "타로 해석 처리 중 오류가 발생했습니다.",
-    });
+    return res.status(200).json(createFallbackReading(topic, selectedCards));
   }
 }
