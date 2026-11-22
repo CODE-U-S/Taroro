@@ -17,7 +17,7 @@ function drawCards() {
   return ids.slice(0, FAN_SIZE)
 }
 
-function CardSelect({ onBack, onComplete }) {
+function CardSelect({ onBack, onSelect }) {
   const [cards, setCards] = useState(drawCards)
   const [selected, setSelected] = useState([])
   const [round, setRound] = useState(0)
@@ -27,9 +27,9 @@ function CardSelect({ onBack, onComplete }) {
 
   useEffect(() => {
     if (!isFull) return
-    const timer = setTimeout(() => onComplete(selected), 700)
+    const timer = setTimeout(() => onSelect(selected), 700)
     return () => clearTimeout(timer)
-  }, [isFull, selected, onComplete])
+  }, [isFull, selected, onSelect])
 
   const handlePick = (id) => {
     if (selected.includes(id)) {

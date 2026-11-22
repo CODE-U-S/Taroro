@@ -11,11 +11,11 @@
   cursor: pointer;
 }
 
+/* 부채꼴 크기 1320 x 402. 화면 높이가 낮으면 위 여백(Figma 102px)부터 줄이고,
+   그래도 모자라면 부채꼴을 줄인다. 827px, 465px 은 부채꼴을 뺀 나머지 내용의 높이 */
 .card-fan {
-  /* Figma 기준 1px. 화면이 좁거나 낮으면 부채꼴을 줄인다 */
   --u: min(1px, (100vw - 48px) / 1320, max(0.6px, (100vh - 465px) / 402));
   position: relative;
-  flex: none;
   width: calc(1320 * var(--u));
   height: calc(402 * var(--u));
   margin-top: clamp(40px, 100vh - 827px, 102px);

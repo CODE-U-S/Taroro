@@ -1,21 +1,5 @@
-.card-hero.card-hero-detail {
-  gap: 8px;
-  margin-top: -46px;
-}
-
-.card-hero-detail .card-title {
-  font-size: 34px;
-  line-height: 1.6;
-}
-
-.card-hero-detail .card-subtitle {
-  font-size: 15px;
-  line-height: 1.6;
-}
-
 .card-detail {
   box-sizing: border-box;
-  flex: none;
   width: min(1120px, 100vw - 48px);
   min-height: 600px;
   margin-top: 23px;
@@ -203,10 +187,6 @@
 }
 
 @media (max-width: 600px) {
-  .card-hero-detail .card-title {
-    font-size: 25px;
-  }
-
   .card-detail {
     padding: 24px 18px 28px;
   }

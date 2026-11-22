@@ -28,7 +28,7 @@ function CardPage({ onBack, onComplete }) {
           onConfirm={handleConfirm}
         />
       ) : (
-        <CardSelect onBack={onBack} onComplete={setPickedIds} />
+        <CardSelect onBack={onBack} onSelect={setPickedIds} />
       )}
 
       <footer className="card-footer">

@@ -24,12 +24,10 @@
 }
 
 .card-moons {
-  display: block;
   width: min(598px, 100%);
   height: auto;
   /* Figma 위치(x 409)에 맞춤 */
   transform: translateX(-2%);
-  pointer-events: none;
 }
 
 .card-hero {
@@ -54,8 +52,22 @@
   color: #d0beca;
 }
 
+.card-hero-detail {
+  gap: 8px;
+  margin-top: -46px;
+}
+
+.card-hero-detail .card-title {
+  font-size: 34px;
+  line-height: 1.6;
+}
+
+.card-hero-detail .card-subtitle {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
 .card-footer {
-  box-sizing: border-box;
   width: min(1296px, 100vw - 48px);
   margin-top: auto;
   padding-top: 24px;
@@ -77,7 +89,12 @@
     line-height: 1.45;
   }
 
-  .card-subtitle {
+  .card-hero-detail .card-title {
+    font-size: 25px;
+  }
+
+  .card-subtitle,
+  .card-hero-detail .card-subtitle {
     font-size: 14px;
     line-height: 1.5;
   }
