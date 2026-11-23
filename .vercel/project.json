@@ -1,0 +1,16 @@
+{
+  "projectId": "prj_fQ66QD56jaKlhfysR8GOStkfyrlA",
+  "orgId": "team_WElGccRiSr5R2US5kF7zwYPs",
+  "projectName": "taroro",
+  "settings": {
+    "createdAt": 1794846284213,
+    "framework": "vite",
+    "devCommand": null,
+    "installCommand": null,
+    "buildCommand": null,
+    "outputDirectory": null,
+    "rootDirectory": null,
+    "directoryListing": false,
+    "nodeVersion": "26.x"
+  }
+}
