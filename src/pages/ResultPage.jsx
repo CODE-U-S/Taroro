@@ -53,7 +53,7 @@ function ResultScreen({ topic, cards, status, reading, error, onReload, onHome, 
 
   return (
     <main className="result-page">
-      <img className="result-moons" src="/images/result/moons.png" alt="" />
+      <img className="result-moons" src="/images/moons.png" alt="" />
 
       <section className="result-panel" aria-labelledby="result-title">
         <div className="result-cards">

@@ -3,6 +3,7 @@ import { useState } from 'react'
     import TopicPage from './pages/TopicPage'
     import GuidePage from './components/GuidePage'
     import CardPage from './pages/CardPage'
+    import ResultPage from './pages/ResultPage'
 
     function PreviewApp() {
     const [page, setPage] = useState('start') // start | topic | card | result
@@ -51,7 +52,23 @@ import { useState } from 'react'
         )
     }
 
-    return <p>결과 화면 준비 중 ({cards.map((card) => card.id).join(', ')})</p>
+    return (
+        <ResultPage
+        topic={selectedTopic}
+        question={question}
+        cards={cards}
+        onHome={() => {
+            setSelectedTopic(null)
+            setQuestion('')
+            setCards([])
+            setPage('start')
+        }}
+        onRetry={() => {
+            setCards([])
+            setPage('card')
+        }}
+        />
+    )
     }
 
     export default PreviewApp
