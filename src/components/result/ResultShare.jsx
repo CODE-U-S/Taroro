@@ -18,7 +18,7 @@ function ResultShare({ topic, cards, activeCard, reading, onBack }) {
 
   return (
     <main className="result-page">
-      <img className="result-moons" src="/images/result/moons.png" alt="" />
+      <img className="result-moons" src="/images/moons.png" alt="" />
 
       <section className="result-panel share-panel" aria-labelledby="share-title">
         <div className="share-card-frame">
