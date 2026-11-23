@@ -1,0 +1,222 @@
+/* 결과 공유 화면 (배경/패널 공통 스타일은 ResultPage.css) */
+
+.share-panel {
+  grid-template-columns: 196.5px minmax(0, 1fr);
+  column-gap: 60px;
+  padding: 91px 74px 54px 68px;
+  align-items: start;
+}
+
+.share-card-frame {
+  box-sizing: border-box;
+  width: 196.5px;
+  height: 342.5px;
+  padding: 11px 12px;
+  background: #ede2cc;
+  border: 1.5px solid #cdb89a;
+  border-radius: 10px;
+}
+
+.share-card-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+  background: #2a2230;
+}
+
+.share-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 18px;
+}
+
+.share-badge-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.share-line {
+  position: relative;
+  flex: 0 1 190px;
+  height: 1.5px;
+  background: #a8834f;
+}
+
+.share-line::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  background: url('/images/result/share-diamond.svg') center / contain no-repeat;
+  transform: translateY(-50%);
+}
+
+.share-line--left::before {
+  left: -5px;
+}
+
+.share-line--right::before {
+  right: -5px;
+}
+
+.share-badge {
+  box-sizing: border-box;
+  flex: none;
+  width: 315.5px;
+  height: 45.5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 14px;
+  background: #3f1d4a;
+  border: 1.5px solid #cfa86c;
+  border-radius: 23px;
+  font: 700 19px/1 'Noto Serif KR', serif;
+  color: #f3e6cf;
+}
+
+.share-title {
+  margin: 34px 0 0;
+  font: 700 30px/1.45 'Noto Serif KR', serif;
+  letter-spacing: normal;
+  color: #2b1b2e;
+}
+
+.share-subtitle {
+  margin-top: 6px;
+  font: 400 17px/1.45 'Noto Serif KR', serif;
+  color: #6e5d64;
+}
+
+.share-input-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.share-input {
+  box-sizing: border-box;
+  width: min(601.5px, 100%);
+  height: 65.5px;
+  margin-top: 33px;
+  padding: 0 26px;
+  background: #fffcf6;
+  border: 1.5px solid #cdb89a;
+  border-radius: 12px;
+  font: 400 18px/1 'Noto Serif KR', serif;
+  color: #2b1b2e;
+}
+
+.share-input::placeholder {
+  color: #8c7b80;
+}
+
+.share-input:focus-visible {
+  outline: 3px solid #47214d;
+  outline-offset: 2px;
+}
+
+.share-hint {
+  min-height: 20px;
+  margin-top: 8px;
+  font: 400 14px/1.4 'Noto Sans KR', sans-serif;
+  color: #6e5d64;
+}
+
+.share-divider {
+  width: 100%;
+  margin: 22px 0 0;
+  border: 0;
+  border-top: 1px solid #dccdb5;
+}
+
+.share-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 55px;
+}
+
+.share-btn {
+  box-sizing: border-box;
+  width: 233.5px;
+  height: 61.5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1.5px solid #4a2a55;
+  border-radius: 31px;
+  background: transparent;
+  color: #4a2a55;
+  font: 700 20px/1 'Noto Sans KR', sans-serif;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.share-btn--primary {
+  background: #3f1d4a;
+  border-color: #3f1d4a;
+  color: #f4eee3;
+}
+
+.share-btn:hover {
+  transform: translateY(-2px);
+}
+
+.share-btn:focus-visible {
+  outline: 3px solid #47214d;
+  outline-offset: 3px;
+}
+
+@media (max-width: 1100px) {
+  .share-panel {
+    column-gap: 36px;
+    padding: 48px 40px 44px;
+  }
+}
+
+@media (max-width: 820px) {
+  .share-panel {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    row-gap: 28px;
+    padding: 36px 20px;
+  }
+  .share-badge {
+    width: 240px;
+    font-size: 17px;
+  }
+  .share-title {
+    font-size: 24px;
+  }
+  .share-actions {
+    margin-top: 32px;
+  }
+  .share-btn {
+    width: min(233.5px, 100%);
+  }
+}
+
+@media (max-width: 420px) {
+  .share-line {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .share-btn {
+    transition: none;
+  }
+}
