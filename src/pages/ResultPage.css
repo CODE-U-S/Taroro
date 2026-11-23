@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700&family=Noto+Serif+KR:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700&family=Noto+Serif+KR:wght@400;700&display=swap");
 
 /* ── 공통: 배경 / 패널 / 버튼 (결과 화면 + 결과 공유 화면) ── */
 
@@ -11,9 +11,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #4a2358 url('/images/bg.jpg') center / cover no-repeat;
+  background: #4a2358 url("/images/bg.jpg") center / cover no-repeat;
   overflow: hidden;
   text-align: center;
+  position: relative;
 }
 
 .result-moons {
@@ -55,9 +56,13 @@
   border-radius: 32px;
   background: #f4eee3;
   color: #47214d;
-  font: 500 20px/1 'Noto Sans KR', sans-serif;
+  font:
+    500 20px/1 "Noto Sans KR",
+    sans-serif;
   cursor: pointer;
-  transition: transform 0.2s ease, filter 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
 }
 
 .result-btn--primary {
@@ -108,7 +113,9 @@
 }
 
 .result-card-caption {
-  font: 700 16px/1.4 'Noto Serif KR', serif;
+  font:
+    700 16px/1.4 "Noto Serif KR",
+    serif;
   color: #47214d;
 }
 
@@ -123,11 +130,13 @@
   border-radius: 999px;
   background: transparent;
   color: #47214d;
-  font: 500 14px/1.4 'Noto Sans KR', sans-serif;
+  font:
+    500 14px/1.4 "Noto Sans KR",
+    sans-serif;
   cursor: pointer;
 }
 
-.result-card-tab[aria-selected='true'] {
+.result-card-tab[aria-selected="true"] {
   background: #47214d;
   border-color: #47214d;
   color: #f4eee3;
@@ -174,7 +183,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font: 700 20px/1 'Noto Serif KR', serif;
+  font:
+    700 20px/1 "Noto Serif KR",
+    serif;
   color: #ffffff;
 }
 
@@ -191,26 +202,34 @@
 
 .result-title {
   margin: 0;
-  font: 700 36px/1.4 'Noto Serif KR', serif;
+  font:
+    700 36px/1.4 "Noto Serif KR",
+    serif;
   letter-spacing: normal;
   color: #000000;
   word-break: keep-all;
 }
 
 .result-summary {
-  font: 400 17px/1.85 'Noto Serif KR', serif;
+  font:
+    400 17px/1.85 "Noto Serif KR",
+    serif;
   color: #6e5d64;
   word-break: keep-all;
 }
 
 .result-advice {
-  font: 700 20px/1.6 'Noto Serif KR', serif;
+  font:
+    700 20px/1.6 "Noto Serif KR",
+    serif;
   color: #47214d;
   word-break: keep-all;
 }
 
 .result-note {
-  font: 400 13px/1.4 'Noto Sans KR', sans-serif;
+  font:
+    400 13px/1.4 "Noto Sans KR",
+    sans-serif;
   color: #8c7b80;
 }
 
@@ -220,12 +239,16 @@
   align-items: center;
   gap: 14px;
   padding-top: 24px;
-  font: 700 20px/1.5 'Noto Serif KR', serif;
+  font:
+    700 20px/1.5 "Noto Serif KR",
+    serif;
   color: #47214d;
 }
 
 .result-status-detail {
-  font: 400 15px/1.5 'Noto Sans KR', sans-serif;
+  font:
+    400 15px/1.5 "Noto Sans KR",
+    sans-serif;
   color: #8c7b80;
 }
 
@@ -306,5 +329,74 @@
   }
   .result-status-icon {
     animation: none;
+  }
+}
+
+.result-back-button {
+  position: absolute;
+  top: 24px;
+  left: 28px;
+  z-index: 10;
+
+  padding: 8px 14px;
+  border: none;
+  background: transparent;
+
+  color: #f4eee3;
+  font:
+    400 16px/1 "Noto Sans KR",
+    sans-serif;
+
+  cursor: pointer;
+}
+
+.result-back-button:hover {
+  opacity: 0.7;
+}
+
+.result-back-button:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 4px;
+}
+
+@media (max-width: 600px) {
+  .result-back-button {
+    top: 12px;
+    left: 8px;
+  }
+}
+
+/* 결과 화면 이전 버튼 */
+.result-back-button {
+  position: absolute;
+  top: 24px;
+  left: 28px;
+  z-index: 10;
+
+  padding: 8px 14px;
+  border: none;
+  background: transparent;
+
+  color: #f4eee3;
+  font:
+    400 16px/1 "Noto Sans KR",
+    sans-serif;
+
+  cursor: pointer;
+}
+
+.result-back-button:hover {
+  opacity: 0.7;
+}
+
+.result-back-button:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 4px;
+}
+
+@media (max-width: 600px) {
+  .result-back-button {
+    top: 12px;
+    left: 8px;
   }
 }

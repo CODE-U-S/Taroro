@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #4a2358 url('/images/bg.jpg') center / cover no-repeat;
+  background: #4a2358 url("/images/bg.jpg") center / cover no-repeat;
   overflow: hidden;
 }
 
@@ -20,22 +20,19 @@
   text-align: center;
 }
 
-.start-eyebrow {
-  margin: 0;
-  font: 400 12px/14px 'Noto Sans KR', sans-serif;
-  letter-spacing: 2px;
-  color: #95733f;
-}
-
 .start-title {
   margin: 0;
-  font: 700 64px/92px 'Noto Serif KR', serif;
+  font:
+    700 64px/92px "Noto Serif KR",
+    serif;
   color: #ffffff;
 }
 
 .start-subtitle {
   margin: 0;
-  font: 400 16px/19px 'Noto Sans KR', sans-serif;
+  font:
+    400 16px/19px "Noto Sans KR",
+    sans-serif;
   color: #82718f;
 }
 
@@ -52,9 +49,8 @@
   top: 0;
   width: 153.46px;
   height: 263.24px;
-  background: url('/images/the-star.png') center / 100% 100% no-repeat;
+  background: url("/images/the-star.png") center / 100% 100% no-repeat;
 }
-
 
 .start-card--left {
   left: 40.75px;
@@ -84,10 +80,14 @@
   border-radius: 50px;
   background: #f4eee3;
   color: #c6a15b;
-  font: 900 24px/29px 'Noto Sans KR', sans-serif;
+  font:
+    900 24px/29px "Noto Sans KR",
+    sans-serif;
   cursor: pointer;
   filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
-  transition: transform 0.2s ease, filter 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
 }
 
 .start-button:hover {

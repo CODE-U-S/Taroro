@@ -1,8 +1,8 @@
-import { useState } from 'react'
-import { resolveCards, TOPIC_KO } from '../components/result/cardInfo'
-import { useTarotReading } from '../components/result/useTarotReading'
-import ResultShare from '../components/result/ResultShare'
-import './ResultPage.css'
+import { useState } from "react";
+import { resolveCards, TOPIC_KO } from "../components/result/cardInfo";
+import { useTarotReading } from "../components/result/useTarotReading";
+import ResultShare from "../components/result/ResultShare";
+import "./ResultPage.css";
 
 /**
  * 결과 화면 (결과 화면 + 결과 공유)
@@ -17,9 +17,16 @@ import './ResultPage.css'
  */
 function ResultPage({ reading, ...props }) {
   if (reading) {
-    return <ResultScreen {...props} status="success" reading={reading} />
+    return (
+      <ResultScreen
+        {...props}
+        status="success"
+        reading={reading}
+        onBack={handleBackToCardDetail}
+      />
+    );
   }
-  return <ResultPageWithFetch {...props} />
+  return <ResultPageWithFetch {...props} />;
 }
 
 function ResultPageWithFetch(props) {
@@ -27,32 +34,54 @@ function ResultPageWithFetch(props) {
     props.topic,
     props.question,
     props.cards,
-  )
+  );
   return (
-    <ResultScreen {...props} status={status} reading={reading} error={error} onReload={retry} />
-  )
+    <ResultScreen
+      {...props}
+      status={status}
+      reading={reading}
+      error={error}
+      onReload={retry}
+    />
+  );
 }
 
-function ResultScreen({ topic, cards, status, reading, error, onReload, onHome, onRetry }) {
-  const resolved = resolveCards(cards)
-  const [activeIndex, setActiveIndex] = useState(resolved.length - 1)
-  const [view, setView] = useState('result') // result | share
-  const activeCard = resolved[activeIndex]
+function ResultScreen({
+  topic,
+  cards,
+  status,
+  reading,
+  error,
+  onReload,
+  onHome,
+  onRetry,
+  onBack,
+}) {
+  const resolved = resolveCards(cards);
+  const [activeIndex, setActiveIndex] = useState(resolved.length - 1);
+  const [view, setView] = useState("result"); // result | share
+  const activeCard = resolved[activeIndex];
 
-  if (view === 'share') {
+  if (view === "share") {
     return (
       <ResultShare
         topic={topic}
         cards={resolved}
         activeCard={activeCard}
         reading={reading}
-        onBack={() => setView('result')}
+        onBack={() => setView("result")}
       />
-    )
+    );
   }
 
   return (
     <main className="result-page">
+      {onBack && (
+        <button type="button" className="result-back-button" onClick={onBack}>
+          ← 이전
+        </button>
+      )}
+
       <img className="result-moons" src="/images/moons.png" alt="" />
 
       <section className="result-panel" aria-labelledby="result-title">
@@ -71,7 +100,11 @@ function ResultScreen({ topic, cards, status, reading, error, onReload, onHome, 
             </figure>
           )}
 
-          <div className="result-card-tabs" role="tablist" aria-label="선택한 카드">
+          <div
+            className="result-card-tabs"
+            role="tablist"
+            aria-label="선택한 카드"
+          >
             {resolved.map((card, index) => (
               <button
                 key={card.id}
@@ -89,43 +122,61 @@ function ResultScreen({ topic, cards, status, reading, error, onReload, onHome, 
 
         <div className="result-main">
           <div className="result-badge-row">
-            <img className="result-ornament" src="/images/result/ornament-line.png" alt="" />
+            <img
+              className="result-ornament"
+              src="/images/result/ornament-line.png"
+              alt=""
+            />
             <div className="result-badge">
               <img src="/images/result/badge.png" alt="" />
-              <p>오늘의 {TOPIC_KO[topic] ?? ''} 운세</p>
+              <p>오늘의 {TOPIC_KO[topic] ?? ""} 운세</p>
             </div>
-            <img className="result-ornament" src="/images/result/ornament-line.png" alt="" />
+            <img
+              className="result-ornament"
+              src="/images/result/ornament-line.png"
+              alt=""
+            />
           </div>
 
           <div className="result-body" aria-live="polite">
-            {status === 'loading' && (
+            {status === "loading" && (
               <div className="result-status">
-                <img className="result-status-icon" src="/images/result/share-sparkle.svg" alt="" />
+                <img
+                  className="result-status-icon"
+                  src="/images/result/share-sparkle.svg"
+                  alt=""
+                />
                 <p>카드의 이야기를 읽고 있어요…</p>
               </div>
             )}
 
-            {status === 'error' && (
+            {status === "error" && (
               <div className="result-status">
                 <p>해석을 불러오지 못했어요.</p>
                 {error && <p className="result-status-detail">{error}</p>}
                 {onReload && (
-                  <button type="button" className="result-btn result-btn--primary" onClick={onReload}>
+                  <button
+                    type="button"
+                    className="result-btn result-btn--primary"
+                    onClick={onReload}
+                  >
                     다시 시도
                   </button>
                 )}
               </div>
             )}
 
-            {status === 'success' && reading && (
+            {status === "success" && reading && (
               <>
                 <h1 id="result-title" className="result-title">
                   {reading.title}
                 </h1>
                 <p className="result-summary">{reading.summary}</p>
                 <p className="result-advice">“{reading.advice}”</p>
-                {reading.source === 'fallback' && (
-                  <p className="result-note">AI 연결이 원활하지 않아 기본 해석을 보여드리고 있어요.</p>
+                {reading.source === "fallback" && (
+                  <p className="result-note">
+                    AI 연결이 원활하지 않아 기본 해석을 보여드리고 있어요.
+                  </p>
                 )}
               </>
             )}
@@ -139,15 +190,19 @@ function ResultScreen({ topic, cards, status, reading, error, onReload, onHome, 
             <img src="/images/result/icon-home.svg" alt="" />
             홈으로
           </button>
-          <button type="button" className="result-btn result-btn--primary" onClick={onRetry}>
+          <button
+            type="button"
+            className="result-btn result-btn--primary"
+            onClick={onRetry}
+          >
             <img src="/images/result/icon-redo.svg" alt="" />
             다시보기
           </button>
           <button
             type="button"
             className="result-btn"
-            onClick={() => setView('share')}
-            disabled={status !== 'success'}
+            onClick={() => setView("share")}
+            disabled={status !== "success"}
           >
             <img src="/images/result/icon-share.svg" alt="" />
             공유하기
@@ -155,7 +210,7 @@ function ResultScreen({ topic, cards, status, reading, error, onReload, onHome, 
         </div>
       </section>
     </main>
-  )
+  );
 }
 
-export default ResultPage
+export default ResultPage;

@@ -16,11 +16,11 @@
 
 /* 100vw 를 쓰면 세로 스크롤이 생길 때 가로 스크롤도 생겨서 고정 배경으로 깐다 */
 .card-page::before {
-  content: '';
+  content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: #352037 url('/images/bg.jpg') center / cover no-repeat;
+  background: #352037 url("/images/bg.jpg") center / cover no-repeat;
 }
 
 .card-moons {
@@ -41,14 +41,18 @@
 
 .card-title {
   margin: 0;
-  font: 500 36px/52px 'Noto Serif KR', serif;
+  font:
+    500 36px/52px "Noto Serif KR",
+    serif;
   letter-spacing: 0;
   color: #f4eee3;
 }
 
 .card-subtitle {
   margin: 0;
-  font: 400 16px/19px 'Noto Sans KR', sans-serif;
+  font:
+    400 16px/19px "Noto Sans KR",
+    sans-serif;
   color: #d0beca;
 }
 
@@ -75,7 +79,9 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 4px 24px;
-  font: 400 11px/20px 'Noto Sans KR', sans-serif;
+  font:
+    400 11px/20px "Noto Sans KR",
+    sans-serif;
   color: #bea47a;
 }
 
@@ -97,9 +103,5 @@
   .card-hero-detail .card-subtitle {
     font-size: 14px;
     line-height: 1.5;
-  }
-
-  .card-footer {
-    justify-content: center;
   }
 }
