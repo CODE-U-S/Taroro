@@ -1,0 +1,178 @@
+.card-back-button {
+  position: absolute;
+  top: 24px;
+  /* .card-page 가 #root(1126px) 안에 있어서 화면 왼쪽 기준으로 맞춤 */
+  left: calc(50% - 50vw + 28px);
+  padding: 8px 14px;
+  border: 0;
+  background: transparent;
+  color: #f4eee3;
+  font: 400 16px/1 'Noto Sans KR', sans-serif;
+  cursor: pointer;
+}
+
+/* 부채꼴 크기 1320 x 402. 화면 높이가 낮으면 위 여백(Figma 102px)부터 줄이고,
+   그래도 모자라면 부채꼴을 줄인다. 827px, 465px 은 부채꼴을 뺀 나머지 내용의 높이 */
+.card-fan {
+  --u: min(1px, (100vw - 48px) / 1320, max(0.6px, (100vh - 465px) / 402));
+  position: relative;
+  width: calc(1320 * var(--u));
+  height: calc(402 * var(--u));
+  margin-top: clamp(40px, 100vh - 827px, 102px);
+}
+
+/* Figma 배치: 카드 154 x 264, 한 장마다 50.19px 오른쪽, 1.034 x offset² 아래, 2.762deg 회전 */
+.card-fan-card {
+  --lift: 0px;
+  position: absolute;
+  top: calc(3 * var(--u));
+  left: calc(50% - 77 * var(--u));
+  z-index: var(--layer);
+  width: calc(154 * var(--u));
+  height: calc(264 * var(--u));
+  padding: 0;
+  border: 0;
+  border-radius: 5px;
+  background: #f8efd9 url('/images/the-star.png') center / cover no-repeat;
+  box-shadow: 0 12px 24px rgba(84, 49, 118, 0.22);
+  cursor: pointer;
+  transform:
+    translate(
+      calc(var(--offset) * 50.19 * var(--u)),
+      calc(var(--offset) * var(--offset) * 1.034 * var(--u))
+    )
+    rotate(calc(var(--offset) * 2.762deg))
+    translateY(var(--lift));
+  transition:
+    transform 0.3s ease,
+    filter 0.2s ease;
+  animation: card-deal 0.5s ease backwards;
+}
+
+.card-fan-card:hover,
+.card-fan-card:focus-visible {
+  --lift: calc(-18 * var(--u));
+}
+
+.card-fan-card:focus-visible {
+  z-index: 200;
+  outline: 3px solid #ffffff;
+  outline-offset: 4px;
+}
+
+.card-fan-card.is-selected {
+  --lift: calc(-44 * var(--u));
+  z-index: calc(var(--layer) + 30);
+  box-shadow:
+    0 0 0 3px #e3c27a,
+    0 18px 30px rgba(28, 10, 36, 0.45);
+}
+
+.card-fan.is-full .card-fan-card:not(.is-selected) {
+  --lift: 0px;
+  filter: brightness(0.6);
+  cursor: default;
+}
+
+.card-fan-badge {
+  position: absolute;
+  top: calc(-14 * var(--u));
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1px 12px;
+  border: 1px solid #c69a4d;
+  border-radius: 999px;
+  background: #43223f;
+  color: #f4eee3;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 500;
+  font-size: max(11px, calc(14 * var(--u)));
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.card-shuffle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 59px;
+  padding: 0 30px;
+  border: 1.5px solid #c69a4d;
+  border-radius: 30px;
+  background: #f4eee3;
+  color: #6b4320;
+  font: 500 15px/18px 'Noto Sans KR', sans-serif;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.card-shuffle-icon {
+  min-width: 27px;
+  font: 400 22px/26px 'Noto Sans KR', sans-serif;
+  text-align: center;
+}
+
+.card-shuffle:hover {
+  transform: translateY(-2px);
+}
+
+.card-back-button:focus-visible,
+.card-shuffle:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 4px;
+}
+
+@keyframes card-deal {
+  from {
+    transform: translate(0, calc(72 * var(--u)));
+    opacity: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .card-back-button {
+    top: 12px;
+    left: calc(50% - 50vw + 8px);
+  }
+
+  .card-fan {
+    --u: 0.7px;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 16px 8px;
+    width: min(420px, 100%);
+    height: auto;
+    margin: 32px 0 24px;
+  }
+
+  .card-fan-card {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 154 / 264;
+    transform: translateY(var(--lift));
+  }
+
+  .card-fan-card:hover,
+  .card-fan-card:focus-visible {
+    --lift: -4px;
+  }
+
+  .card-fan-card.is-selected {
+    --lift: -8px;
+  }
+
+  .card-shuffle {
+    min-height: 52px;
+    padding: 0 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-fan-card {
+    animation: none;
+    transition: none;
+  }
+}
