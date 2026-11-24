@@ -41,11 +41,6 @@ function CardPage({ onBack, onComplete, initialPickedIds = null }) {
       ) : (
         <CardSelect onBack={onBack} onSelect={setPickedIds} />
       )}
-
-      <footer className="card-footer">
-        <span>TARORO · 나를 만나는 작은 여정</span>
-        <span>운명과 정신적 여정 / 00 — XXI</span>
-      </footer>
     </main>
   );
 }
