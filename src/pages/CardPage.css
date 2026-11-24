@@ -71,20 +71,6 @@
   line-height: 1.6;
 }
 
-.card-footer {
-  width: min(1296px, 100vw - 48px);
-  margin-top: auto;
-  padding-top: 24px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 4px 24px;
-  font:
-    400 11px/20px "Noto Sans KR",
-    sans-serif;
-  color: #bea47a;
-}
-
 @media (max-width: 600px) {
   .card-page {
     padding-top: 56px;
@@ -103,9 +89,5 @@
   .card-hero-detail .card-subtitle {
     font-size: 14px;
     line-height: 1.5;
-  }
-
-  .card-footer {
-    justify-content: center;
   }
 }
