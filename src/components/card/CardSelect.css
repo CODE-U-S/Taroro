@@ -1,6 +1,7 @@
 .card-back-button {
   position: absolute;
   top: 24px;
+  /* .card-page 가 #root(1126px) 안에 있어서 화면 왼쪽 기준으로 맞춤 */
   left: calc(50% - 50vw + 28px);
   padding: 8px 14px;
   border: 0;
@@ -12,40 +13,32 @@
   cursor: pointer;
 }
 
-/* 원본 Figma 크기 1320 x 402와 카드 크기 154 x 264 유지 */
+/* 부채꼴 크기 1320 x 402. 화면 높이가 낮으면 위 여백(Figma 102px)부터 줄이고,
+   그래도 모자라면 부채꼴을 줄인다. 827px, 465px 은 부채꼴을 뺀 나머지 내용의 높이 */
 .card-fan {
   --u: min(1px, (100vw - 48px) / 1320, max(0.6px, (100vh - 465px) / 402));
   position: relative;
   width: calc(1320 * var(--u));
   height: calc(402 * var(--u));
   margin-top: clamp(40px, 100vh - 827px, 102px);
-  overflow: hidden;
   cursor: grab;
   touch-action: pan-y;
-  user-select: none;
   -webkit-user-select: none;
+  user-select: none;
 }
 
-.card-fan.is-dragging {
+.card-fan.is-dragging,
+.card-fan.is-dragging .card-fan-card {
   cursor: grabbing;
 }
 
-/* 모든 카드를 딱 한 번 배치. 스크롤 중에는 이 묶음만 좌우로 이동. */
-.card-fan-track {
-  position: absolute;
-  inset: 0;
-  height: 100%;
-  will-change: transform;
-  pointer-events: none;
-}
-
-/* 첫 22장에 대해서는 친구가 만든 Figma 수치와 동일한 좌표 */
+/* Figma 배치: 카드 154 x 264, 한 장마다 50.19px 오른쪽, 1.034 x offset² 아래, 2.762deg 회전.
+   부채꼴 위 자리(translate, rotate)는 넘기는 대로 바로 따라오고, 들어 올리는 transform 만 애니메이션한다 */
 .card-fan-card {
   --lift: 0px;
   position: absolute;
   top: calc(3 * var(--u));
-  left: calc(50% - 77 * var(--u) - 10.5 * 50.19 * var(--u));
-  z-index: var(--layer);
+  left: calc(50% - 77 * var(--u));
   width: calc(154 * var(--u));
   height: calc(264 * var(--u));
   padding: 0;
@@ -54,15 +47,13 @@
   background: #f8efd9 url("/images/the-star.png") center / cover no-repeat;
   box-shadow: 0 12px 24px rgba(84, 49, 118, 0.22);
   cursor: pointer;
-  pointer-events: auto;
-
-  /* 스크롤에 따른 offset 재계산 없음: 모든 카드의 변형값은 고정 */
-  transform: translateX(calc(var(--index) * 50.19 * var(--u)))
-    translateY(calc(var(--slot-offset) * var(--slot-offset) * 1.034 * var(--u)))
-    rotate(calc(var(--slot-offset) * 2.762deg)) translateY(var(--lift));
+  translate: calc(var(--offset) * 50.19 * var(--u))
+    calc(var(--offset) * var(--offset) * 1.034 * var(--u));
+  rotate: calc(var(--offset) * 2.762deg);
+  transform: translateY(var(--lift));
   transition:
-    filter 0.2s ease,
-    box-shadow 0.2s ease;
+    transform 0.3s ease,
+    filter 0.2s ease;
   animation: card-deal 0.5s ease backwards;
 }
 
@@ -79,7 +70,7 @@
 
 .card-fan-card.is-selected {
   --lift: calc(-44 * var(--u));
-  z-index: calc(var(--layer) + 30);
+  z-index: 1;
   box-shadow:
     0 0 0 3px #e3c27a,
     0 18px 30px rgba(28, 10, 36, 0.45);
@@ -89,6 +80,50 @@
   --lift: 0px;
   filter: brightness(0.6);
   cursor: default;
+}
+
+.card-fan-card.is-outside {
+  visibility: hidden;
+}
+
+/* 부채꼴 가운데 아래 빈 곳에 둔다 */
+.card-fan-slider {
+  position: absolute;
+  bottom: calc(36 * var(--u));
+  left: calc(50% - 150 * var(--u));
+  width: calc(300 * var(--u));
+  height: 20px;
+  margin: 0;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.card-fan-slider::-webkit-slider-runnable-track {
+  height: 2px;
+  background: rgba(198, 154, 77, 0.6);
+}
+
+.card-fan-slider::-moz-range-track {
+  height: 2px;
+  background: rgba(198, 154, 77, 0.6);
+}
+
+.card-fan-slider::-webkit-slider-thumb {
+  width: 14px;
+  height: 14px;
+  margin-top: -6px;
+  border-radius: 50%;
+  background: #f4eee3;
+  appearance: none;
+}
+
+.card-fan-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: 0;
+  border-radius: 50%;
+  background: #f4eee3;
 }
 
 .card-fan-badge {
@@ -138,6 +173,7 @@
 }
 
 .card-back-button:focus-visible,
+.card-fan-slider:focus-visible,
 .card-shuffle:focus-visible {
   outline: 3px solid #ffffff;
   outline-offset: 4px;
@@ -145,46 +181,10 @@
 
 @keyframes card-deal {
   from {
+    translate: 0 calc(72 * var(--u));
+    rotate: 0deg;
     opacity: 0;
   }
-}
-
-.card-fan-navigation {
-  width: min(460px, 92vw);
-  margin: 12px auto 16px;
-  color: #f4eee3;
-  font-family: "Noto Sans KR", sans-serif;
-}
-
-.card-fan-navigation-label {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 8px;
-  font-size: 12px;
-  opacity: 0.9;
-}
-
-.card-fan-range {
-  display: block;
-  width: 100%;
-  height: 16px;
-  margin: 0;
-  accent-color: #c69a4d;
-  cursor: ew-resize;
-}
-
-.card-fan-range:focus-visible {
-  outline: 2px solid #fff;
-  outline-offset: 4px;
-}
-
-.card-fan-hint {
-  margin: 6px 0 0;
-  text-align: center;
-  color: #f4eee3;
-  font-size: 12px;
-  opacity: 0.8;
 }
 
 @media (max-width: 640px) {
@@ -193,27 +193,46 @@
     left: calc(50% - 50vw + 8px);
   }
 
+  /* 부채꼴 대신 78장을 한 줄로 늘어놓고 옆으로 넘긴다 */
   .card-fan {
-    --mobile-card-width: min(62px, calc((100vw - 88px) / 6));
-    width: min(420px, 100%);
-    height: calc(var(--mobile-card-width) * 1.715 + 44px);
+    --u: 0.7px;
+    display: flex;
+    gap: 8px;
+    box-sizing: border-box;
+    width: calc(100% + 48px);
+    height: auto;
     margin: 32px 0 24px;
+    padding: 20px 24px 8px;
+    overflow-x: auto;
+    cursor: auto;
+    touch-action: auto;
   }
 
   .card-fan-card {
-    top: 22px;
-    left: 0;
-    width: var(--mobile-card-width);
+    position: relative;
+    top: auto;
+    left: auto;
+    flex: none;
+    width: 80px;
     height: auto;
     aspect-ratio: 154 / 264;
-    transform: translateX(calc(var(--index) * (var(--mobile-card-width) + 8px)))
-      translateY(var(--lift));
+    translate: none;
+    rotate: none;
+  }
+
+  .card-fan-card.is-outside {
+    visibility: visible;
+  }
+
+  .card-fan-slider {
+    display: none;
   }
 
   .card-fan-card:hover,
   .card-fan-card:focus-visible {
     --lift: -4px;
   }
+
   .card-fan-card.is-selected {
     --lift: -8px;
   }
@@ -222,16 +241,9 @@
     min-height: 52px;
     padding: 0 22px;
   }
-
-  .card-fan-navigation {
-    margin-top: 6px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card-fan-track {
-    will-change: auto;
-  }
   .card-fan-card {
     animation: none;
     transition: none;
